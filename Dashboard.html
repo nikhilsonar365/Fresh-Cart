@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Grocery Store</title>
+    <link rel="stylesheet" href="./styles.css">
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.2s ease-in-out;
+            border-bottom: 4px solid #4CAF50;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin: 5px 0;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .card p {
+            font-size: 22px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 5px 0;
+        }
+
+        .history {
+            margin-top: 20px;
+        }
+
+        .history h2 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th, .table td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        .table th {
+            background: #4CAF50;
+            color: white;
+            font-weight: 600;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table tbody tr:hover {
+            background-color: #eaf6ea;
+        }
+
+        .empty-message {
+            text-align: center;
+            font-size: 18px;
+            color: #777;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="side-nav">
+        <div class="logo">
+          <img src="img/logo.png" alt="FreshCart Logo">
+          <span>FreshCart</span>
+        </div>
+        <a href="#" class="x"><i class="fa-solid fa-xmark"></i></a>
+        <div class="search-bar">
+          <input type="text" placeholder="Search for products">
+        </div>
+        <span class="All-departments">All Departments</span>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="error.html">Shop</a></li>
+          <li><a href="error.html">Stores</a></li>
+          <li><a href="Main-Menu.html">Mega Menu</a></li>
+          <li><a href="error.html">Pages</a></li>
+          <li><a href="profile.html">Account</a></li>
+          <li><a href="Dashboard.html">Dashboard</a></li>
+          <li><a href="error.html">Docs</a></li>
+        </ul>
+       </div>
+    
+    
+       <div class="Head">
+        <div class="head">
+          <div>Super Value Deals - Save more with coupons</div>
+          <div>English</div>
+         </div>
+       </div>
+      <section class="header">
+        <div class="Header">
+            <header>
+                <div class="logo">
+                  <img src="img/logo.png" alt="FreshCart Logo">
+                  <span>FreshCart</span>
+                </div>
+                <div class="search-bar">
+                  <input type="text" id="search-bar" placeholder="Search for products">
+                  <button onclick="searchProduct()">Search</button>
+                  <div class="suggestions" id="suggestions"></div>
+                  <input style="border-radius: 5px; width: 20%;" type="text" placeholder="Location">
+                </div>
+                <div class="top-links">
+                  <span><a href="wishlist.html"><i class="fa-regular fa-heart"></i></a></span>
+                  <span><a href="profile.html"><i class="fa-regular fa-user"></i></a></span>
+                  <span><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></span>
+                  <a href="#side-nav" id="toggleDiv"><i class="fa-solid fa-bars"></i></a>
+                </div>
+              </header>
+            
+              <!-- Navigation -->
+              <nav>
+                <div class="all-departments">
+                  <span class="All-departments">All Departments</span>
+                  <div class="All-Departments">
+                    <div>Dairy, Bread & Eggs</div>
+                    <div>Snaks & Munchies</div>
+                    <div>Fruits & Vegetables</div>
+                    <div>Cold Drinks & Juices</div>
+                    <div>Breakfast & Instant Food</div>
+                    <div>Bakery & Biscuits</div>
+                    <div>Chicken, Meat & Fish</div>
+                  </div>
+                </div>
+                <ul>
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="error.html">Shop</a></li>
+                  <li><a href="error.html">Stores</a></li>
+                  <li><a href="Main-Menu.html">Mega Menu</a></li>
+                  <li><a href="error.html">Pages</a></li>
+                  <li><a href="profile.html">Account</a></li>
+                  <li><a href="Dashboard.html">Dashboard</a></li>
+                  <li><a href="error.html">Docs</a></li>
+                </ul>
+              </nav>
+        </div>
+      </section>
+
+<div class="container">
+    <h1>User Dashboard</h1>
+
+    <div class="stats">
+        <div class="card">
+            <h2>Total Spendings</h2>
+            <p>$<span id="totalSpendings">0.00</span></p>
+        </div>
+        <div class="card">
+            <h2>Cash Balance</h2>
+            <p>$<span id="cashBalance">100.00</span></p>
+        </div>
+        <div class="card">
+            <h2>Reward Points</h2>
+            <p><span id="rewardPoints">500</span> Points</p>
+        </div>
+        <div class="card">
+            <h2>Total Orders</h2>
+            <p><span id="totalOrders">0</span></p>
+        </div>
+    </div>
+
+    <div class="history">
+        <h2>Purchase History</h2>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Item</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="purchaseHistory">
+                    <!-- Purchase history will be inserted dynamically -->
+                </tbody>
+            </table>
+        </div>
+        <p id="emptyMessage" class="empty-message" style="display: none;">No purchases yet.</p>
+    </div>
+</div>
+
+<script>
+    let purchaseHistory = [
+        { id: 101, item: "Organic Apples", amount: 7.98, date: "2024-02-01" },
+        { id: 102, item: "Fresh Milk", amount: 2.49, date: "2024-01-28" },
+        { id: 103, item: "Brown Bread", amount: 3.99, date: "2024-01-20" },
+        { id: 104, item: "Almond Butter", amount: 5.99, date: "2024-01-15" },
+        { id: 105, item: "Green Tea", amount: 4.99, date: "2024-01-10" }
+    ];
+
+    let cashBalance = 100.00;
+    let rewardPoints = 500;
+    let totalSpendings = 0;
+    let totalOrders = purchaseHistory.length;
+
+    function displayDashboard() {
+        const historyContainer = document.getElementById("purchaseHistory");
+        const emptyMessage = document.getElementById("emptyMessage");
+        const totalSpendingsElement = document.getElementById("totalSpendings");
+        const cashBalanceElement = document.getElementById("cashBalance");
+        const rewardPointsElement = document.getElementById("rewardPoints");
+        const totalOrdersElement = document.getElementById("totalOrders");
+
+        historyContainer.innerHTML = "";
+
+        if (purchaseHistory.length === 0) {
+            emptyMessage.style.display = "block";
+            return;
+        } else {
+            emptyMessage.style.display = "none";
+        }
+
+        purchaseHistory.forEach(order => {
+            totalSpendings += order.amount;
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>#${order.id}</td>
+                <td>${order.item}</td>
+                <td>$${order.amount.toFixed(2)}</td>
+                <td>${order.date}</td>
+            `;
+            historyContainer.appendChild(row);
+        });
+
+        totalSpendingsElement.textContent = totalSpendings.toFixed(2);
+        totalOrdersElement.textContent = totalOrders;
+
+        rewardPoints += totalSpendings * 10;
+        rewardPointsElement.textContent = Math.round(rewardPoints);
+
+        cashBalance -= totalSpendings;
+        cashBalanceElement.textContent = cashBalance.toFixed(2);
+    }
+
+    displayDashboard();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist - Online Grocery Store</title>
+    <link rel="stylesheet" href="./styles.css">
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        input, select {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .wishlist {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .wishlist-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .wishlist-item img {
+            width: 70px;
+            height: 70px;
+            border-radius: 5px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .wishlist-item .info {
+            flex-grow: 1;
+        }
+
+        .wishlist-item h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .wishlist-item p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .wishlist-item .stock {
+            font-weight: bold;
+            color: green;
+        }
+
+        .wishlist-item .out-of-stock {
+            color: red;
+        }
+
+        .rating {
+            color: #FFD700;
+            font-size: 16px;
+        }
+
+        .wishlist-item .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            color: white;
+        }
+
+        .btn.remove {
+            background-color: #e74c3c;
+        }
+
+        .btn.remove:hover {
+            background-color: #c0392b;
+        }
+
+        .btn.cart {
+            background-color: #4CAF50;
+        }
+
+        .btn.cart:hover {
+            background-color: #45a049;
+        }
+
+        .empty-message {
+            text-align: center;
+            font-size: 18px;
+            color: #777;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="side-nav">
+        <div class="logo">
+          <img src="img/logo.png" alt="FreshCart Logo">
+          <span>FreshCart</span>
+        </div>
+        <a href="#" class="x"><i class="fa-solid fa-xmark"></i></a>
+        <div class="search-bar">
+          <input type="text" placeholder="Search for products">
+        </div>
+        <span class="All-departments">All Departments</span>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="error.html">Shop</a></li>
+          <li><a href="error.html">Stores</a></li>
+          <li><a href="Main-Menu.html">Mega Menu</a></li>
+          <li><a href="error.html">Pages</a></li>
+          <li><a href="profile.html">Account</a></li>
+          <li><a href="Dashboard.html">Dashboard</a></li>
+          <li><a href="error.html">Docs</a></li>
+        </ul>
+       </div>
+    
+    
+       <div class="Head">
+        <div class="head">
+          <div>Super Value Deals - Save more with coupons</div>
+          <div>English</div>
+         </div>
+       </div>
+      <section class="header">
+        <div class="Header">
+            <header>
+                <div class="logo">
+                  <img src="img/logo.png" alt="FreshCart Logo">
+                  <span>FreshCart</span>
+                </div>
+                <div class="search-bar">
+                  <input type="text" id="search-bar" placeholder="Search for products">
+                  <button onclick="searchProduct()">Search</button>
+                  <div class="suggestions" id="suggestions"></div>
+                  <input style="border-radius: 5px; width: 20%;" type="text" placeholder="Location">
+                </div>
+                <div class="top-links">
+                  <span><a href="wishlist.html"><i class="fa-regular fa-heart"></i></a></span>
+                  <span><a href="profile.html"><i class="fa-regular fa-user"></i></a></span>
+                  <span><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></span>
+                  <a href="#side-nav" id="toggleDiv"><i class="fa-solid fa-bars"></i></a>
+                </div>
+              </header>
+            
+              <!-- Navigation -->
+              <nav>
+                <div class="all-departments">
+                  <span class="All-departments">All Departments</span>
+                  <div class="All-Departments">
+                    <div>Dairy, Bread & Eggs</div>
+                    <div>Snaks & Munchies</div>
+                    <div>Fruits & Vegetables</div>
+                    <div>Cold Drinks & Juices</div>
+                    <div>Breakfast & Instant Food</div>
+                    <div>Bakery & Biscuits</div>
+                    <div>Chicken, Meat & Fish</div>
+                  </div>
+                </div>
+                <ul>
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="error.html">Shop</a></li>
+                  <li><a href="error.html">Stores</a></li>
+                  <li><a href="Main-Menu.html">Mega Menu</a></li>
+                  <li><a href="error.html">Pages</a></li>
+                  <li><a href="profile.html">Account</a></li>
+                  <li><a href="Dashboard.html">Dashboard</a></li>
+                  <li><a href="error.html">Docs</a></li>
+                </ul>
+              </nav>
+        </div>
+      </section>
+
+<div class="container">
+    <h1>My Wishlist</h1>
+
+    <div class="controls">
+        <input type="text" id="searchBox" placeholder="Search products..." onkeyup="searchWishlist()">
+        <select id="sortOptions" onchange="sortWishlist()">
+            <option value="default">Sort by</option>
+            <option value="low-to-high">Price: Low to High</option>
+            <option value="high-to-low">Price: High to Low</option>
+        </select>
+    </div>
+
+    <div class="wishlist" id="wishlist">
+        <!-- Wishlist items will be inserted dynamically here -->
+    </div>
+
+    <p id="emptyMessage" class="empty-message" style="display: none;">Your wishlist is empty.</p>
+</div>
+
+<script>
+    let wishlist = [
+        { id: 1, name: "Organic Apples", price: 3.99, rating: 4.5, stock: true, img: "https://via.placeholder.com/70" },
+        { id: 2, name: "Fresh Milk", price: 2.49, rating: 4.0, stock: false, img: "https://via.placeholder.com/70" },
+        { id: 3, name: "Brown Bread", price: 1.99, rating: 4.7, stock: true, img: "https://via.placeholder.com/70" },
+        { id: 4, name: "Almond Butter", price: 5.99, rating: 4.2, stock: true, img: "https://via.placeholder.com/70" },
+        { id: 5, name: "Green Tea", price: 2.99, rating: 4.6, stock: false, img: "https://via.placeholder.com/70" }
+    ];
+
+    function displayWishlist() {
+        const wishlistContainer = document.getElementById("wishlist");
+        const emptyMessage = document.getElementById("emptyMessage");
+
+        wishlistContainer.innerHTML = "";
+
+        if (wishlist.length === 0) {
+            emptyMessage.style.display = "block";
+            return;
+        } else {
+            emptyMessage.style.display = "none";
+        }
+
+        wishlist.forEach(item => {
+            const div = document.createElement("div");
+            div.classList.add("wishlist-item");
+            div.innerHTML = `
+                <img src="${item.img}" alt="${item.name}">
+                <div class="info">
+                    <h3>${item.name}</h3>
+                    <p>Price: $${item.price.toFixed(2)}</p>
+                    <p class="rating">⭐ ${item.rating}</p>
+                    <p class="${item.stock ? 'stock' : 'out-of-stock'}">
+                        ${item.stock ? 'In Stock' : 'Out of Stock'}
+                    </p>
+                </div>
+                <div class="actions">
+                    <button class="btn cart" ${item.stock ? '' : 'disabled'} onclick="moveToCart(${item.id})">Move to Cart</button>
+                    <button class="btn remove" onclick="removeFromWishlist(${item.id})">Remove</button>
+                </div>
+            `;
+            wishlistContainer.appendChild(div);
+        });
+    }
+
+    function removeFromWishlist(id) {
+        wishlist = wishlist.filter(item => item.id !== id);
+        displayWishlist();
+    }
+
+    function moveToCart(id) {
+        const item = wishlist.find(item => item.id === id);
+        alert(`${item.name} moved to cart!`);
+        removeFromWishlist(id);
+    }
+
+    function searchWishlist() {
+        let query = document.getElementById("searchBox").value.toLowerCase();
+        wishlist = wishlist.filter(item => item.name.toLowerCase().includes(query));
+        displayWishlist();
+    }
+
+    function sortWishlist() {
+        const sortOption = document.getElementById("sortOptions").value;
+        if (sortOption === "low-to-high") {
+            wishlist.sort((a, b) => a.price - b.price);
+        } else if (sortOption === "high-to-low") {
+            wishlist.sort((a, b) => b.price - a.price);
+        }
+        displayWishlist();
+    }
+
+    displayWishlist();
+</script>
+
+</body>
+</html>
